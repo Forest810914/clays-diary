@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8" />
+  <title>Klárkin diár</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="app">
+    <header class="app-header">
+      <div class="app-title">
+        <span class="logo-circle">K</span>
+        <div>
+          <h1>Klárkin diár</h1>
+          <p>farebný svet hier, denníka a učenia</p>
+        </div>
+      </div>
+
+      <button id="voiceBtn" class="voice-btn" title="Hlasové ovládanie">
+        🎤
+      </button>
+    </header>
+
+    <main>
+      <!-- HLAVNÁ OBRAZOVKA -->
+      <section id="screen-home" class="screen screen-active">
+        <div class="cards-grid">
+          <button class="card" data-target="screen-diary">
+            <div class="card-icon">📖</div>
+            <h2>Deník</h2>
+            <p>Napíš si, čo sa dnes stalo.</p>
+          </button>
+
+          <button class="card" id="card-multiplication">
+            <div class="card-icon">✖️</div>
+            <h2>Násobilka</h2>
+            <p>Opakovanie násobilky, hlavne číslo 4.</p>
+          </button>
+
+          <button class="card" id="card-games">
+            <div class="card-icon">🎮</div>
+            <h2>Hry</h2>
+            <p>Mini hry pre zábavu a učenie.</p>
+          </button>
+
+          <button class="card" id="card-audio">
+            <div class="card-icon">🎧</div>
+            <h2>Nahrávky</h2>
+            <p>Miesto pre rozprávky a pesničky.</p>
+          </button>
+        </div>
+      </section>
+
+      <!-- OBRAZOVKA – DENNÍK -->
+      <section id="screen-diary" class="screen">
+        <div class="screen-header">
+          <button class="back-btn" data-target="screen-home">← Späť</button>
+          <h2>Klárkin denník</h2>
+        </div>
+
+        <div class="diary-date-row">
+          <label for="diaryDate">Dátum:</label>
+          <input type="date" id="diaryDate" />
+          <button id="todayBtn" class="pill-btn">Dnes</button>
+        </div>
+
+        <div class="diary-content">
+          <textarea id="diaryText" placeholder="Čo sa dnes stalo? Ako si sa mala?"></textarea>
+        </div>
+
+        <div class="diary-actions">
+          <button id="saveDiaryBtn" class="primary-btn">💾 Uložiť zápis</button>
+          <span id="diaryStatus" class="diary-status"></span>
+        </div>
+      </section>
+
+      <!-- (do budúcna sem doplníme: Násobilku, hry, nahrávky ako nové <section>) -->
+    </main>
+
+    <footer class="app-footer">
+      <span>Made with ❤️ pre Klárku</span>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
