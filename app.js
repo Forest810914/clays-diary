@@ -14,8 +14,40 @@ function showScreen(id) {
   if (target) {
     target.classList.add("screen-active");
     currentScreenId = id;
+    announceScreen(id);  // 👈 pridali sme toto
   }
 }
+
+// -------------------------------
+// Hlásenie obrazoviek (pozdravy a možnosti)
+// -------------------------------
+
+let hasAnnouncedHome = false;
+
+function announceScreen(id) {
+  let text = "";
+
+  if (id === "screen-home") {
+    if (hasAnnouncedHome) return; // aby to nehučalo stále dookola
+    text = "Ahoj Klárka. Vyber si: Môj denník, Škola hrou, Aplikácie alebo Médiá.";
+    hasAnnouncedHome = true;
+  } else if (id === "screen-diary") {
+    text = "Otvorila si Môj denník. Môžeš písať, diktovať, pridávať fotky a nálepky.";
+  } else if (id === "screen-school") {
+    text = "Vitaj v rozprávkovej škole. Vyber si Hravé počítanie, Vybrané slová alebo Let's talk English.";
+  } else if (id === "screen-apps") {
+    text = "Tu sú aplikácie a mini hry.";
+  } else if (id === "screen-media") {
+    text = "Tu nájdeš rozprávky, pesničky a videá.";
+  } else if (id === "screen-settings") {
+    text = "Tu sú nastavenia pre rodiča.";
+  }
+
+  if (text) {
+    speak(text, "sk-SK");
+  }
+}
+
 
 // Pre hlavné karty (dedinka)
 document.querySelectorAll(".village-card[data-target]").forEach((card) => {
@@ -326,6 +358,10 @@ function speak(text, lang = "sk-SK") {
 // zavoláme hneď po načítaní skriptu
 initVoices("sk-SK");
 
+// keď sa appka načíta, po chvíľke pozdrav Klárku
+setTimeout(() => {
+  announceScreen("screen-home");
+}, 800);
 
 // -------------------------------
 // Hlasové ovládanie – príkazy + diktovanie
