@@ -16,11 +16,11 @@
         <span class="logo-circle">K</span>
         <div>
           <h1>Klárkin diár</h1>
-          <p>farebný svet hier,  denníka a učenia</p>
+          <p>farebný svet hier, denníka a učenia</p>
         </div>
       </div>
 
-      <button id="voiceBtn" class="voice-btn" title="Hlasové ovládanie">
+      <button id="voiceBtn" class="voice-btn" title="Hlasové ovládanie – príkazy">
         🎤
       </button>
     </header>
@@ -69,11 +69,44 @@
         </div>
 
         <div class="diary-content">
-          <textarea id="diaryText" placeholder="Čo sa dnes stalo? Ako si sa mala?"></textarea>
+          <textarea
+            id="diaryText"
+            placeholder="Čo sa dnes stalo? Ako si sa mala?"
+          ></textarea>
+        </div>
+
+        <!-- Nové: hlasové diktovanie a fotka -->
+        <div class="diary-media-row">
+          <button id="voiceDiaryBtn" class="secondary-btn">
+            🎤 Diktovať zápis
+          </button>
+
+          <button id="photoBtn" class="secondary-btn">
+            📷 Pridať fotku
+          </button>
+
+          <!-- skryté input pre fotku, otvorí natívny fotoaparát / výber -->
+          <input
+            type="file"
+            id="photoInput"
+            accept="image/*"
+            capture="environment"
+            hidden
+          />
+        </div>
+
+        <div class="diary-media-preview" id="diaryMediaPreview">
+          <img
+            id="diaryPhotoPreview"
+            alt="Fotka k dnešnému dňu"
+            class="diary-photo"
+          />
         </div>
 
         <div class="diary-actions">
-          <button id="saveDiaryBtn" class="primary-btn">💾 Uložiť zápis</button>
+          <button id="saveDiaryBtn" class="primary-btn">
+            💾 Uložiť zápis
+          </button>
           <span id="diaryStatus" class="diary-status"></span>
         </div>
       </section>
