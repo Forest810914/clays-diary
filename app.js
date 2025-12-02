@@ -371,14 +371,40 @@ if ("SpeechRecognition" in window || "webkitSpeechRecognition" in window) {
     startListening("command", voiceBtn);
   });
 
-  voiceDiaryBtn.addEventListener("click", () => {
-    if (!recognition) return;
-    if (listening && voiceMode === "dictation") {
-      recognition.stop();
-      return;
-    }
+  function startDictationHold() {
+  if (!recognition) return;
+  // začni diktovanie iba ak už nepočúvame
+  if (!listening) {
     startListening("dictation", voiceDiaryBtn);
-  });
+  }
+}
+
+function stopDictationHold() {
+  if (!recognition) return;
+  if (listening) {
+    recognition.stop();
+  }
+}
+
+// myš – desktop
+voiceDiaryBtn.addEventListener("mousedown", (e) => {
+  e.preventDefault();
+  startDictationHold();
+});
+voiceDiaryBtn.addEventListener("mouseup", (e) => {
+  e.preventDefault();
+  stopDictationHold();
+});
+
+// dotyk – mobil
+voiceDiaryBtn.addEventListener("touchstart", (e) => {
+  e.preventDefault();
+  startDictationHold();
+});
+voiceDiaryBtn.addEventListener("touchend", (e) => {
+  e.preventDefault();
+  stopDictationHold();
+});
 } else {
   voiceBtn.disabled = true;
   voiceBtn.title = "Hlasové ovládanie nie je v tomto prehliadači podporované.";
