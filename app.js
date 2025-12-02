@@ -253,30 +253,79 @@ photoInput.addEventListener("change", (event) => {
 });
 
 // -------------------------------
-// Text-to-Speech (čítanie denníka)
+// Text-to-Speech (čítanie denníka + hlásenia obrazoviek)
 // -------------------------------
+
+let selectedVoice = null;
+
+function initVoices(preferredLang = "sk-SK") {
+  if (!("speechSynthesis" in window)) return;
+
+  function pickVoice() {
+    const voices = window.speechSynthesis.getVoices();
+    if (!voices || voices.length === 0) return;
+
+    // najprv sk/cz
+    const skCsVoices = voices.filter(v =>
+      v.lang.toLowerCase().startsWith("sk") ||
+      v.lang.toLowerCase().startsWith("cs")
+    );
+
+    const preferredNames = ["lucia", "zuzana", "laura", "jana", "female", "woman", "zena"];
+
+    let voice = null;
+
+    if (skCsVoices.length > 0) {
+      voice =
+        skCsVoices.find(v =>
+          preferredNames.some(name =>
+            (v.name || "").toLowerCase().includes(name)
+          )
+        ) || skCsVoices[0];
+    } else {
+      // fallback – hľadaj ženský hlas podľa názvu
+      voice =
+        voices.find(v =>
+          /female|woman|girl|zuzana|laura|lucia/i.test(v.name || "")
+        ) || voices[0];
+    }
+
+    selectedVoice = voice;
+    console.log("Vybraný hlas:", voice && voice.name, voice && voice.lang);
+  }
+
+  pickVoice();
+  if (typeof window.speechSynthesis.onvoiceschanged !== "undefined") {
+    window.speechSynthesis.onvoiceschanged = pickVoice;
+  }
+}
 
 function speak(text, lang = "sk-SK") {
   if (!("speechSynthesis" in window)) {
-    alert("Prehrávanie hlasu nie je v tomto prehliadači podporované.");
+    console.warn("SpeechSynthesis nie je podporovaný.");
     return;
   }
   if (!text || !text.trim()) {
-    alert("Denník je prázdny.");
     return;
   }
   window.speechSynthesis.cancel();
   const utterance = new SpeechSynthesisUtterance(text.trim());
-  utterance.lang = lang;
+
+  if (selectedVoice) {
+    utterance.voice = selectedVoice;
+    utterance.lang = selectedVoice.lang || lang;
+  } else {
+    utterance.lang = lang;
+  }
+
   utterance.rate = 1;
   utterance.pitch = 1;
   window.speechSynthesis.speak(utterance);
 }
 
-const readDiaryBtn = document.getElementById("readDiaryBtn");
-readDiaryBtn.addEventListener("click", () => {
-  speak(diaryTextArea.value, "sk-SK");
-});
+// zavoláme hneď po načítaní skriptu
+initVoices("sk-SK");
+
 
 // -------------------------------
 // Hlasové ovládanie – príkazy + diktovanie
