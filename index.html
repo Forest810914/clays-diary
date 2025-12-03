@@ -33,37 +33,58 @@
     <main>
       <!-- HLAVNÁ OBRAZOVKA -->
       <section id="screen-home" class="screen screen-active">
-        <div class="home-intro">
-          <h2>Ahoj, Klárka 💜</h2>
-          <p>Vyber si, kam pôjdeme dnes.</p>
-        </div>
+  <div class="home-hero">
+    <div class="home-illustration">
+      <!-- Tu je akože "Pixar svet" – dedinka, škola, domčeky -->
+      <div class="hill"></div>
+      <div class="cloud cloud-left"></div>
+      <div class="cloud cloud-right"></div>
+      <div class="house house-diary">🏠</div>
+      <div class="house house-school">🏫</div>
+      <div class="house house-apps">🧩</div>
+      <div class="house house-media">🎵</div>
+    </div>
 
-        <div class="village-grid">
-          <button class="village-card" data-target="screen-diary">
-            <div class="village-emoji">🏠</div>
-            <h3>Môj denník</h3>
-            <p>Spomienky, fotky a zápisky.</p>
-          </button>
+    <div class="home-menu-panel">
+      <h2>Ahoj, Klárka 💜</h2>
+      <p>Vyber si svoj svet:</p>
 
-          <button class="village-card" data-target="screen-school">
-            <div class="village-emoji">🏫</div>
-            <h3>Škola hrou</h3>
-            <p>Hravé počítanie, vybrané slová, angličtina.</p>
-          </button>
+      <div class="home-menu-buttons">
+        <button class="home-menu-btn" data-target="screen-diary">
+          <span class="icon">🏠</span>
+          <span class="text">
+            <strong>Môj denník</strong>
+            <small>spomienky, fotky, nálady</small>
+          </span>
+        </button>
 
-          <button class="village-card" data-target="screen-apps">
-            <div class="village-emoji">🧩</div>
-            <h3>Aplikácie</h3>
-            <p>Mini hry a špeciálne pomôcky.</p>
-          </button>
+        <button class="home-menu-btn" data-target="screen-school">
+          <span class="icon">🏫</span>
+          <span class="text">
+            <strong>Škola hrou</strong>
+            <small>počítanie, slovenčina, angličtina</small>
+          </span>
+        </button>
 
-          <button class="village-card" data-target="screen-media">
-            <div class="village-emoji">🎵</div>
-            <h3>Médiá</h3>
-            <p>Rozprávky, pesničky a videá.</p>
-          </button>
-        </div>
-      </section>
+        <button class="home-menu-btn" data-target="screen-apps">
+          <span class="icon">🧩</span>
+          <span class="text">
+            <strong>Aplikácie</strong>
+            <small>hravé miniapky</small>
+          </span>
+        </button>
+
+        <button class="home-menu-btn" data-target="screen-media">
+          <span class="icon">🎵</span>
+          <span class="text">
+            <strong>Médiá</strong>
+            <small>rozprávky, pesničky, videá</small>
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
 
       <!-- MÔJ DENNÍK -->
       <section id="screen-diary" class="screen">
