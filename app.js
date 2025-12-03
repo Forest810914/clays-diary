@@ -326,28 +326,112 @@ setTimeout(() => {
 // Hlasové ovládanie – príkazy + diktovanie
 // -------------------------------
 
-voiceDiaryBtn.addEventListener("click", () => {
+const voiceBtn = document.getElementById("voiceBtn");
+const voiceDiaryBtn = document.getElementById("voiceDiaryBtn");
+
+let recognition = null;
+let listening = false;
+let voiceMode = null; // 'command' | 'dictation'
+let activeVoiceButton = null;
+
+// skús zistiť, či prehliadač podporuje rozpoznávanie reči
+if ("SpeechRecognition" in window || "webkitSpeechRecognition" in window) {
+  const SpeechRecognition =
+    window.SpeechRecognition || window.webkitSpeechRecognition;
+
+  recognition = new SpeechRecognition();
+  recognition.lang = "sk-SK";
+  recognition.interimResults = false;
+  recognition.maxAlternatives = 1;
+  recognition.continuous = false; // budeme si to reštartovať sami
+
+  recognition.addEventListener("result", (event) => {
+    const transcript = event.results[0][0].transcript.toLowerCase();
+    console.log("Rozpoznaný text:", transcript);
+
+    if (voiceMode === "dictation") {
+      handleDictation(transcript);
+    } else {
+      handleVoiceCommand(transcript);
+    }
+  });
+
+  recognition.addEventListener("end", () => {
+    listening = false;
+    if (activeVoiceButton) {
+      activeVoiceButton.classList.remove("listening");
+    }
+
+    // ak sme v diktovacom móde, po krátkej pauze znovu naštartuj
+    if (voiceMode === "dictation") {
+      setTimeout(() => {
+        // stále diktujeme? (nezrušil to užívateľ)
+        if (voiceMode === "dictation" && recognition) {
+          listening = true;
+          activeVoiceButton && activeVoiceButton.classList.add("listening");
+          recognition.start();
+        }
+      }, 200);
+    } else {
+      // v príkazovom móde po jednom povedaní skončíme
+      voiceMode = null;
+      activeVoiceButton = null;
+    }
+  });
+
+  function startListening(mode, button) {
     if (!recognition) return;
-    if (listening && voiceMode === "dictation") {
+
+    // zastav prípadné predošlé počúvanie
+    try {
+      recognition.stop();
+    } catch (e) {
+      console.warn(e);
+    }
+
+    voiceMode = mode;
+    activeVoiceButton = button;
+    listening = true;
+    button.classList.add("listening");
+    recognition.start();
+  }
+
+  // tlačidlo na hlasové príkazy (navigácia)
+  voiceBtn.addEventListener("click", () => {
+    if (!recognition) return;
+
+    // ak už počúvame príkazy, klik = stop
+    if (listening && voiceMode === "command") {
+      voiceMode = null;
       recognition.stop();
       return;
     }
+
+    // spusti mód príkazov
+    startListening("command", voiceBtn);
+  });
+
+  // tlačidlo na diktovanie denníka
+  voiceDiaryBtn.addEventListener("click", () => {
+    if (!recognition) return;
+
+    // ak už diktujeme, klik = stop diktovania
+    if (listening && voiceMode === "dictation") {
+      voiceMode = null;
+      recognition.stop();
+      return;
+    }
+
+    // spusti mód diktovania
+    startListening("dictation", voiceDiaryBtn);
+  });
+
 } else {
+  // prehliadač nepodporuje rozpoznávanie reči
   voiceBtn.disabled = true;
   voiceBtn.title = "Hlasové ovládanie nie je v tomto prehliadači podporované.";
   voiceDiaryBtn.disabled = true;
-}
-
-function startListening(mode, button) {
-  if (!recognition) return;
-  if (listening) {
-    recognition.stop();
-  }
-  voiceMode = mode;
-  activeVoiceButton = button;
-  button.classList.add("listening");
-  listening = true;
-  recognition.start();
+  voiceDiaryBtn.title = "Diktovanie nie je v tomto prehliadači podporované.";
 }
 
 // Hlasové príkazy
