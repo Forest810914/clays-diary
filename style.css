@@ -197,6 +197,169 @@ main {
   color: #64748b;
 }
 
+/* HOME – Pixar-štýl scéna */
+
+.home-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: 10px;
+  height: 100%;
+}
+
+.home-illustration {
+  position: relative;
+  border-radius: 24px;
+  background: radial-gradient(circle at top, #fef3c7 0%, #bfdbfe 45%, #1d3557 100%);
+  overflow: hidden;
+  box-shadow: 0 16px 34px rgba(15, 23, 42, 0.45);
+}
+
+/* kopček / lúka */
+.hill {
+  position: absolute;
+  bottom: -20%;
+  left: -10%;
+  width: 130%;
+  height: 60%;
+  background: radial-gradient(circle at top, #4ade80 0%, #16a34a 45%, #14532d 100%);
+  border-radius: 50% 50% 0 0;
+}
+
+/* mráčiky */
+.cloud {
+  position: absolute;
+  top: 12%;
+  width: 80px;
+  height: 40px;
+  background: #ffffff;
+  border-radius: 999px;
+  box-shadow:
+    -20px 8px 0 rgba(255,255,255,0.9),
+    20px 8px 0 rgba(255,255,255,0.85);
+  opacity: 0.9;
+}
+
+.cloud-left {
+  left: 14%;
+}
+
+.cloud-right {
+  right: 16%;
+}
+
+/* domčeky */
+.house {
+  position: absolute;
+  font-size: 30px;
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  background: rgba(255,255,255,0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 20px rgba(15, 23, 42, 0.35);
+}
+
+.house-diary {
+  bottom: 35%;
+  left: 22%;
+}
+
+.house-school {
+  bottom: 45%;
+  right: 22%;
+}
+
+.house-apps {
+  bottom: 18%;
+  left: 35%;
+}
+
+.house-media {
+  bottom: 20%;
+  right: 34%;
+}
+
+/* panel s tlačidlami */
+
+.home-menu-panel {
+  border-radius: 24px;
+  background: #f8fafc;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.2);
+  padding: 14px 12px;
+  display: flex;
+  flex-direction: column;
+}
+
+.home-menu-panel h2 {
+  font-size: 20px;
+  margin-bottom: 4px;
+}
+
+.home-menu-panel p {
+  font-size: 13px;
+  color: #64748b;
+  margin-bottom: 8px;
+}
+
+.home-menu-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.home-menu-btn {
+  border: none;
+  border-radius: 16px;
+  padding: 8px 10px;
+  background: linear-gradient(135deg, #ffffff, #e5edff);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.18);
+  text-align: left;
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+.home-menu-btn .icon {
+  font-size: 22px;
+}
+
+.home-menu-btn .text strong {
+  display: block;
+  font-size: 14px;
+}
+
+.home-menu-btn .text small {
+  display: block;
+  font-size: 11px;
+  color: #64748b;
+}
+
+.home-menu-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(15, 23, 42, 0.25);
+}
+
+.home-menu-btn:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* responzívne */
+
+@media (max-width: 780px) {
+  .home-hero {
+    grid-template-columns: 1fr;
+  }
+
+  .home-illustration {
+    min-height: 180px;
+  }
+}
+
 /* SCREEN HEADER */
 
 .screen-header {
