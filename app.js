@@ -326,85 +326,12 @@ setTimeout(() => {
 // Hlasové ovládanie – príkazy + diktovanie
 // -------------------------------
 
-const voiceBtn = document.getElementById("voiceBtn");
-const voiceDiaryBtn = document.getElementById("voiceDiaryBtn");
-
-let recognition = null;
-let listening = false;
-let voiceMode = null; // 'command' | 'dictation'
-let activeVoiceButton = null;
-
-if ("SpeechRecognition" in window || "webkitSpeechRecognition" in window) {
-  const SpeechRecognition =
-    window.SpeechRecognition || window.webkitSpeechRecognition;
-  recognition = new SpeechRecognition();
-  recognition.lang = "sk-SK";
-  recognition.interimResults = false;
-  recognition.maxAlternatives = 1;
-
-  recognition.addEventListener("result", (event) => {
-    const transcript = event.results[0][0].transcript.toLowerCase();
-    console.log("Rozpoznaný text:", transcript);
-
-    if (voiceMode === "dictation") {
-      handleDictation(transcript);
-    } else {
-      handleVoiceCommand(transcript);
-    }
-  });
-
-  recognition.addEventListener("end", () => {
-    listening = false;
-    if (activeVoiceButton) {
-      activeVoiceButton.classList.remove("listening");
-    }
-    activeVoiceButton = null;
-    voiceMode = null;
-  });
-
-  voiceBtn.addEventListener("click", () => {
+voiceDiaryBtn.addEventListener("click", () => {
     if (!recognition) return;
-    if (listening && voiceMode === "command") {
+    if (listening && voiceMode === "dictation") {
       recognition.stop();
       return;
     }
-    startListening("command", voiceBtn);
-  });
-
-  function startDictationHold() {
-  if (!recognition) return;
-  // začni diktovanie iba ak už nepočúvame
-  if (!listening) {
-    startListening("dictation", voiceDiaryBtn);
-  }
-}
-
-function stopDictationHold() {
-  if (!recognition) return;
-  if (listening) {
-    recognition.stop();
-  }
-}
-
-// myš – desktop
-voiceDiaryBtn.addEventListener("mousedown", (e) => {
-  e.preventDefault();
-  startDictationHold();
-});
-voiceDiaryBtn.addEventListener("mouseup", (e) => {
-  e.preventDefault();
-  stopDictationHold();
-});
-
-// dotyk – mobil
-voiceDiaryBtn.addEventListener("touchstart", (e) => {
-  e.preventDefault();
-  startDictationHold();
-});
-voiceDiaryBtn.addEventListener("touchend", (e) => {
-  e.preventDefault();
-  stopDictationHold();
-});
 } else {
   voiceBtn.disabled = true;
   voiceBtn.title = "Hlasové ovládanie nie je v tomto prehliadači podporované.";
