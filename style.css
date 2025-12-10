@@ -1,36 +1,93 @@
+/* základ */
+* {
+  box-sizing: border-box;
+}
+
 body {
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background: #000;
-    font-family: sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #000;
+  overflow: hidden;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
 }
 
+/* celý screen menu – centrované plátno */
 .screen {
-    position: absolute;
-    width: 100vw;
-    height: 100vh;
-    display: none;
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.screen.visible {
-    display: block;
+/* plátno s mainscreenom – FIXNÝ POMER STRÁN */
+.menu-canvas {
+  position: relative;
+  aspect-ratio: 16 / 9; /* približný pomer mainscreen obrázka */
+  width: min(100vw, 100vh * 16 / 9);
+  max-width: 1920px; /* môžeš zmeniť podľa originálneho rozlíšenia */
 }
 
-.background {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+/* pozadie dedinky */
+.menu-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* ak chceš 100 % bez orezania, daj 'contain' */
+  pointer-events: none; /* kliky prejdú na ikonky */
 }
 
+/* pomocná mriežka na určovanie súradníc (10×10) */
+#debug-grid {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0.18) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.18) 1px,
+      transparent 1px
+    );
+  background-size: 10% 100%, 100% 10%; /* 10 stĺpcov, 10 riadkov */
+  opacity: 0.5;
+  display: none; /* default vypnuté, zapneš cez JS */
+}
+
+/* spoločný štýl ikoniek */
 .icon {
-    position: absolute;
-    width: 180px;
-    cursor: pointer;
+  position: absolute;
+  width: 16%; /* relatívna šírka ikony k plátnu – môžeš doladiť */
+  max-width: 220px;
+  transform: translate(-50%, -50%); /* zarovná stred na súradnice */
+  cursor: pointer;
 }
 
-/* Tu si neskôr nastavíme konkrétne pozície ikon */
-#btn-dennicek { left: 100px; top: 500px; }
-#btn-skola_hrou { left: 450px; top: 500px; }
-#btn-aplikacie { left: 800px; top: 500px; }
-#btn-media { left: 1150px; top: 500px; }
+/* TU DÁVAME SÚRADNICE – PERCENTÁ VZŤAHOM K PLOCHE MAINCANVAS */
+
+/* hodnoty sú len príklad – neskôr ich doladíme podľa tvojich požiadaviek */
+#btn-dennicek {
+  left: 18%; /* X */
+  top: 70%; /* Y */
+}
+
+#btn-skola {
+  left: 50%;
+  top: 58%;
+}
+
+#btn-aplikacie {
+  left: 82%;
+  top: 64%;
+}
+
+#btn-media {
+  left: 42%;
+  top: 82%;
+}
