@@ -1,29 +1,53 @@
 <!DOCTYPE html>
 <html lang="sk">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Klárkin svet</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Klařkin svet</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <!-- HLAVNÝ SCREEN MENU -->
+  <div id="screen-menu" class="screen">
+    <div class="menu-canvas">
+      <!-- pozadie dedinky -->
+      <img
+        src="assets/img/menu/mainscreen.png"
+        alt="Hlavné menu"
+        class="menu-bg"
+      />
 
-    <!-- SCREEN: MENU -->
-    <div id="screen-menu" class="screen visible">
-        <img src="assets/img/menu/mainscreen.png" class="background">
+      <!-- debug mriežka (len pomocná vrstva, dá sa vypnúť) -->
+      <div id="debug-grid"></div>
 
-        <img src="assets/img/icons/dennicek.png" class="icon" id="btn-dennicek">
-        <img src="assets/img/icons/skola-hrou.png" class="icon" id="btn-skola">
-        <img src="assets/img/icons/aplikacie.png" class="icon" id="btn-aplikacie">
-        <img src="assets/img/icons/media.png" class="icon" id="btn-media">
+      <!-- ikonky – budú umiestnené podľa % súradníc -->
+      <img
+        src="assets/img/icons/dennicek.png"
+        alt="Denníček"
+        id="btn-dennicek"
+        class="icon"
+      />
+      <img
+        src="assets/img/icons/skola-hrou.png"
+        alt="Škola hrou"
+        id="btn-skola"
+        class="icon"
+      />
+      <img
+        src="assets/img/icons/aplikacie.png"
+        alt="Aplikácie"
+        id="btn-aplikacie"
+        class="icon"
+      />
+      <img
+        src="assets/img/icons/media.png"
+        alt="Médiá"
+        id="btn-media"
+        class="icon"
+      />
     </div>
+  </div>
 
-    <!-- SCREEN: DENNÍČEK -->
-    <div id="screen-dennicek" class="screen hidden">
-        <img src="assets/img/dennik/dennik-bg.png" class="background">
-        <img src="assets/img/dennik/dennik-closed.png" id="open-book">
-    </div>
-
-    <script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
